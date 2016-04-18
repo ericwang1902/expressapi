@@ -8,8 +8,15 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var articles = require('./routes/api/articles');
+var writers = require('./routes/api/writers');
+
+
 
 var exphbs  = require('express-handlebars');
+
+var expressJWT = require('express-jwt');
+var jwt = require('jsonwebtoken');
+
 
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
@@ -32,9 +39,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(expressJWT({secret:'ericwang1902'}).unless({path:['/login/','/articles/']}));
+
 app.use('/', routes);
 app.use('/users', users);
-app.use('/article',articles);
+app.use('/articles',articles);
+app.use('/writers',writers);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

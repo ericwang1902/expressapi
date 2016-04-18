@@ -45,7 +45,12 @@ module.exports = {
      * articleController.create()
      */
     create: function(req, res) {
-        var article = new articleModel({			title : req.body.title,			content : req.body.content,			createDate : req.body.createDate,			updateDate : req.body.updateDate
+        var article = new articleModel({
+			title : req.body.title,
+			content : req.body.content,
+			createDate : req.body.createDate,
+			updateDate : req.body.updateDate,
+            writer:req.body.writer
         });
 
         article.save(function(err, article){
@@ -80,7 +85,11 @@ module.exports = {
                 });
             }
 
-            article.title =  req.body.title ? req.body.title : article.title;			article.content =  req.body.content ? req.body.content : article.content;			article.createDate =  req.body.createDate ? req.body.createDate : article.createDate;			article.updateDate =  req.body.updateDate ? req.body.updateDate : article.updateDate;			
+            article.title =  req.body.title ? req.body.title : article.title;
+			article.content =  req.body.content ? req.body.content : article.content;
+			article.createDate =  req.body.createDate ? req.body.createDate : article.createDate;
+			article.updateDate =  req.body.updateDate ? req.body.updateDate : article.updateDate;
+			
             article.save(function(err, article){
                 if(err) {
                     return res.json(500, {
